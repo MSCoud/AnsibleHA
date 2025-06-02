@@ -1,0 +1,14 @@
+all:
+  children:
+    web:
+      hosts:
+        web1:
+          ansible_host: 10.141.17.100
+        web2:
+          ansible_host: 10.141.17.12
+
+    loadbalancer:
+      hosts:
+        haproxy:
+          ansible_host: 10.141.17.43
+

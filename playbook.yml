@@ -1,0 +1,16 @@
+- name: Setup NGINX and Deploy APP
+  hosts: web
+  roles:
+    - nginx_2048
+- name: Setup HAProxy Load Balancer
+  hosts: loadbalancer
+  become: yes
+  roles:
+    - role: geerlingguy.haproxy
+  vars:
+    haproxy_backend_httpchk: ""
+    haproxy_backend_servers:
+      - name: web1
+        address: "{{ hostvars['web1']['ansible_host'] }}:80"
+      - name: web2
+        address: "{{ hostvars['web2']['ansible_host'] }}:80"      
